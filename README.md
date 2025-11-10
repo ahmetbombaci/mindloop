@@ -87,6 +87,7 @@ Notre-Dame Cathedral, French cuisine, fashion, and art...
 ```
 mindloop/
 ├── app.py                          # Main chat application
+├── rag_pdf_directory.py            # Ready-to-use PDF RAG for /Users/ahmetbombaci/rag/ *
 ├── example_groq.py                 # Cloud API example (Groq)
 ├── example_rag.py                  # RAG with sample documents *
 ├── example_rag_from_files.py       # RAG with your text/markdown files *
@@ -98,6 +99,7 @@ mindloop/
 ├── requirements-rag.txt            # RAG dependencies *
 ├── requirements-full.txt           # All dependencies
 ├── README.md                       # This file
+├── README_PDF_RAG.md               # Guide for PDF RAG setup
 ├── INSTALL.md                      # Detailed installation guide
 ├── EXTENSIBILITY.md                # Comprehensive extensibility guide
 └── .gitignore                     # Git ignore rules
@@ -151,6 +153,11 @@ Demonstrates RAG with hardcoded sample documents. Great for understanding how it
 
 Want to use your own files?
 ```bash
+# Simple: Chat with PDFs from a specific directory
+python rag_pdf_directory.py            # Loads all PDFs from /Users/ahmetbombaci/rag/
+                                        # See README_PDF_RAG.md for setup guide
+
+# General purpose: Read various file types
 python example_rag_from_files.py        # Read .txt or .md files from a directory
 python example_rag_advanced_loaders.py  # Read PDFs, web pages, GitHub repos, etc.
 ```
