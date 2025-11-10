@@ -88,7 +88,7 @@ def main():
 
     # Initialize the chat
     try:
-        chat = MindLoopChat(model_name="llama2")
+        chat = MindLoopChat(model_name="llama3.2")
         print("\n✓ Connected to Ollama successfully!\n")
     except Exception as e:
         print(f"\n✗ Error connecting to Ollama: {e}")
