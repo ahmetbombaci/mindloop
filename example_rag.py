@@ -6,10 +6,29 @@ This demonstrates how to extend the basic chat app with document search.
 The LLM can now answer questions based on your own documents.
 
 Setup:
+    pip install -r requirements.txt -r requirements-rag.txt
+
+    Or manually:
     pip install chromadb sentence-transformers
 
 Use case: Chat with your documents, create knowledge bases
 """
+
+# Check for required dependencies
+try:
+    import chromadb
+    import sentence_transformers
+except ImportError as e:
+    print("=" * 60)
+    print("Missing Required Dependencies")
+    print("=" * 60)
+    print("\nThis example requires additional packages.")
+    print("\nInstall with:")
+    print("  pip install -r requirements-rag.txt")
+    print("\nOr manually:")
+    print("  pip install chromadb sentence-transformers")
+    print("\n" + "=" * 60)
+    exit(1)
 
 from langchain_community.llms import Ollama
 from langchain_community.embeddings import HuggingFaceEmbeddings

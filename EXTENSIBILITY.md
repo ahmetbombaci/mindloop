@@ -2,6 +2,8 @@
 
 This guide explains how the MindLoop app can be extended using LangChain's modular architecture.
 
+> **Note:** Different examples require different dependencies. See [INSTALL.md](INSTALL.md) for installation options. The core examples work with just `requirements.txt`, while RAG examples need `requirements-rag.txt`.
+
 ## Table of Contents
 
 1. [Core Concepts](#core-concepts)

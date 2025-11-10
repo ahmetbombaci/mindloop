@@ -9,51 +9,51 @@ A basic Python application demonstrating LangChain integration with Ollama for l
 - Runs completely locally using Ollama (no API keys required)
 - Simple and extensible architecture
 
-## Prerequisites
-
-1. **Python 3.8+**
-2. **Ollama** - Download and install from [https://ollama.ai](https://ollama.ai)
-
-## Setup
+## Quick Start
 
 ### 1. Install Ollama
 
 ```bash
-# On macOS/Linux
+# Download from https://ollama.ai
+# Or on macOS/Linux:
 curl -fsSL https://ollama.ai/install.sh | sh
-
-# Or download from https://ollama.ai
 ```
 
 ### 2. Pull a Model
 
 ```bash
-# Pull the llama2 model (recommended for beginners)
-ollama pull llama2
-
-# Or try other models:
-# ollama pull mistral
-# ollama pull codellama
-# ollama pull phi
+ollama pull llama3.2
 ```
 
-### 3. Start Ollama Server
+### 3. Install Python Dependencies
 
 ```bash
-# Ollama usually starts automatically, but you can ensure it's running:
-ollama serve
-```
-
-### 4. Install Python Dependencies
-
-```bash
-# Create a virtual environment (recommended)
+# Create virtual environment
 python3 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate  # Windows: venv\Scripts\activate
 
-# Install dependencies
+# Install core dependencies
 pip install -r requirements.txt
 ```
+
+### 4. Run the App
+
+```bash
+python app.py
+```
+
+For detailed installation instructions, troubleshooting, and optional dependencies, see **[INSTALL.md](INSTALL.md)**.
+
+## Installation Options
+
+- **Core only** (recommended): `pip install -r requirements.txt`
+  - Runs: app.py, example_tools.py, example_chains.py, example_memory_output.py
+
+- **Core + RAG**: `pip install -r requirements.txt -r requirements-rag.txt`
+  - Adds: example_rag.py (document search)
+
+- **Everything**: `pip install -r requirements-full.txt`
+  - All features and examples
 
 ## Usage
 
@@ -88,14 +88,19 @@ Notre-Dame Cathedral, French cuisine, fashion, and art...
 mindloop/
 ├── app.py                      # Main application with MindLoopChat class
 ├── example_groq.py             # Cloud API example (Groq)
-├── example_rag.py              # RAG example (chat with documents)
+├── example_rag.py              # RAG example (chat with documents) *
 ├── example_tools.py            # Function calling example (calculator, search, etc.)
 ├── example_chains.py           # Advanced chains (sequential, parallel, routing)
 ├── example_memory_output.py   # Memory types & output parsers
-├── requirements.txt            # Python dependencies
+├── requirements.txt            # Core dependencies
+├── requirements-rag.txt        # RAG dependencies *
+├── requirements-full.txt       # All dependencies
 ├── README.md                   # This file
+├── INSTALL.md                  # Detailed installation guide
 ├── EXTENSIBILITY.md            # Comprehensive extensibility guide
 └── .gitignore                 # Git ignore rules
+
+* Requires additional dependencies (see INSTALL.md)
 ```
 
 ## How It Works

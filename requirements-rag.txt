@@ -1,0 +1,5 @@
+# Additional dependencies for RAG example (example_rag.py)
+# Install with: pip install -r requirements.txt -r requirements-rag.txt
+
+chromadb==0.4.22
+sentence-transformers==2.3.1
