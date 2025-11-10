@@ -86,19 +86,21 @@ Notre-Dame Cathedral, French cuisine, fashion, and art...
 
 ```
 mindloop/
-├── app.py                      # Main application with MindLoopChat class
-├── example_groq.py             # Cloud API example (Groq)
-├── example_rag.py              # RAG example (chat with documents) *
-├── example_tools.py            # Function calling example (calculator, search, etc.)
-├── example_chains.py           # Advanced chains (sequential, parallel, routing)
-├── example_memory_output.py   # Memory types & output parsers
-├── requirements.txt            # Core dependencies
-├── requirements-rag.txt        # RAG dependencies *
-├── requirements-full.txt       # All dependencies
-├── README.md                   # This file
-├── INSTALL.md                  # Detailed installation guide
-├── EXTENSIBILITY.md            # Comprehensive extensibility guide
-└── .gitignore                 # Git ignore rules
+├── app.py                          # Main chat application
+├── example_groq.py                 # Cloud API example (Groq)
+├── example_rag.py                  # RAG with sample documents *
+├── example_rag_from_files.py       # RAG with your text/markdown files *
+├── example_rag_advanced_loaders.py # RAG with PDFs, web pages, etc. *
+├── example_tools.py                # Function calling (calculator, search)
+├── example_chains.py               # Advanced chain composition
+├── example_memory_output.py       # Memory types & output parsers
+├── requirements.txt                # Core dependencies
+├── requirements-rag.txt            # RAG dependencies *
+├── requirements-full.txt           # All dependencies
+├── README.md                       # This file
+├── INSTALL.md                      # Detailed installation guide
+├── EXTENSIBILITY.md                # Comprehensive extensibility guide
+└── .gitignore                     # Git ignore rules
 
 * Requires additional dependencies (see INSTALL.md)
 ```
@@ -145,7 +147,13 @@ This app demonstrates the basic building blocks, but LangChain is highly extensi
 ```bash
 python example_rag.py
 ```
-Lets you ask questions about your own documents using semantic search.
+Demonstrates RAG with hardcoded sample documents. Great for understanding how it works.
+
+Want to use your own files?
+```bash
+python example_rag_from_files.py        # Read .txt or .md files from a directory
+python example_rag_advanced_loaders.py  # Read PDFs, web pages, GitHub repos, etc.
+```
 
 **2. Add Tools (Function Calling)**
 ```bash
