@@ -86,11 +86,16 @@ Notre-Dame Cathedral, French cuisine, fashion, and art...
 
 ```
 mindloop/
-├── app.py              # Main application with MindLoopChat class
-├── example_groq.py     # Example using Groq API (cloud alternative)
-├── requirements.txt    # Python dependencies
-├── README.md          # This file
-└── .gitignore         # Git ignore rules
+├── app.py                      # Main application with MindLoopChat class
+├── example_groq.py             # Cloud API example (Groq)
+├── example_rag.py              # RAG example (chat with documents)
+├── example_tools.py            # Function calling example (calculator, search, etc.)
+├── example_chains.py           # Advanced chains (sequential, parallel, routing)
+├── example_memory_output.py   # Memory types & output parsers
+├── requirements.txt            # Python dependencies
+├── README.md                   # This file
+├── EXTENSIBILITY.md            # Comprehensive extensibility guide
+└── .gitignore                 # Git ignore rules
 ```
 
 ## How It Works
@@ -124,6 +129,48 @@ Edit the system message in `app.py:41`:
 ### Add Streaming
 
 For streaming responses, modify the chain to use callbacks (see LangChain docs).
+
+## Extensibility
+
+This app demonstrates the basic building blocks, but LangChain is highly extensible. See **[EXTENSIBILITY.md](EXTENSIBILITY.md)** for a comprehensive guide on how to extend this app.
+
+### Quick Extension Examples
+
+**1. Add RAG (Chat with Documents)**
+```bash
+python example_rag.py
+```
+Lets you ask questions about your own documents using semantic search.
+
+**2. Add Tools (Function Calling)**
+```bash
+python example_tools.py
+```
+Give the LLM capabilities like calculator, web search, Wikipedia lookup, etc.
+
+**3. Advanced Chains**
+```bash
+python example_chains.py
+```
+Build multi-step workflows: sequential, parallel, routing, and transformation chains.
+
+**4. Memory & Output Parsing**
+```bash
+python example_memory_output.py
+```
+Different memory types and structured output (JSON, lists, type-safe objects).
+
+### Common Extension Patterns
+
+- **Swap LLM providers**: Easy switch between Ollama, Groq, GPT, Claude
+- **Add RAG**: Search your documents, PDFs, websites
+- **Add tools**: Calculator, APIs, databases, file operations
+- **Chain composition**: Multi-step workflows, parallel processing
+- **Memory management**: Buffer, window, summary memory
+- **Output parsing**: Get structured JSON instead of text
+- **Agents**: Let LLM decide which tools to use
+
+See [EXTENSIBILITY.md](EXTENSIBILITY.md) for detailed guides, code examples, and best practices.
 
 ## Alternative Free APIs
 
@@ -189,11 +236,22 @@ Pull the model first: `ollama pull llama2`
 
 ## Next Steps
 
-- Add RAG (Retrieval-Augmented Generation) with vector stores
-- Implement streaming responses
-- Add web search capabilities
+Ready to extend the app? Here's a suggested learning path:
+
+1. **Run the basic app**: `python app.py` - Get familiar with the interface
+2. **Try the examples**: Run each example file to see different patterns
+3. **Read the guide**: Check out [EXTENSIBILITY.md](EXTENSIBILITY.md) for detailed explanations
+4. **Modify examples**: Change prompts, models, or add your own data
+5. **Build your use case**: Combine patterns to create your application
+
+### Ideas for Your Next Project
+
+- Personal knowledge assistant (RAG + memory)
+- Code review bot (RAG on codebase + tools for running tests)
+- Research assistant (RAG + web search + summarization chains)
+- Customer support bot (RAG + tools + structured output)
+- Content generator (sequential chains + different memory types)
 - Create a web UI with Streamlit or Gradio
-- Add function calling/tools
 
 ## Resources
 
