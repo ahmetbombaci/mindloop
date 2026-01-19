@@ -29,17 +29,17 @@ ollama pull llama3.2
 
 ```bash
 # Create virtual environment
-python3 -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
+python3 -m venv .venv
+source .venv/bin/activate  # Windows: venv\Scripts\activate
 
-# Install core dependencies
+# Install all dependencies
 pip install -r requirements.txt
 ```
 
 ### 4. Run the App
 
 ```bash
-python app.py
+python MindLoopChat.py
 ```
 
 For detailed installation instructions, troubleshooting, and optional dependencies, see **[INSTALL.md](INSTALL.md)**.

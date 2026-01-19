@@ -4,23 +4,24 @@ Basic LangChain application using Ollama for local LLM inference.
 This app demonstrates a simple chat interface with conversation memory.
 """
 
+import argparse
+
 from langchain_community.llms import Ollama
 from langchain.prompts import ChatPromptTemplate
 from langchain.schema import StrOutputParser
 from langchain.schema.runnable import RunnablePassthrough
 from langchain.memory import ConversationBufferMemory
-import os
-
+from cli import parse_args, DEFAULT_MODEL, DEFAULT_BASE_URL
 
 class MindLoopChat:
     """A simple chatbot using LangChain and Ollama."""
 
-    def __init__(self, model_name="llama2", base_url="http://localhost:11434"):
+    def __init__(self, model_name=DEFAULT_MODEL, base_url=DEFAULT_BASE_URL):
         """
         Initialize the chat application.
 
         Args:
-            model_name: Name of the Ollama model to use (default: llama2)
+            model_name: Name of the Ollama model to use (default: llama3)
             base_url: URL of the Ollama server (default: http://localhost:11434)
         """
         print(f"Initializing MindLoop with model: {model_name}")
@@ -51,6 +52,9 @@ class MindLoopChat:
             | StrOutputParser()
         )
 
+        # Validate connection by making a test call
+        self.llm.invoke("test")
+
     def chat(self, user_input):
         """
         Send a message and get a response.
@@ -76,23 +80,25 @@ class MindLoopChat:
 
 def main():
     """Main function to run the interactive chat."""
+    args = parse_args()
+
     print("=" * 60)
     print("MindLoop - LangChain + Ollama Chat Application")
     print("=" * 60)
     print("\nMake sure Ollama is running locally!")
     print("Install Ollama from: https://ollama.ai")
-    print("Then run: ollama pull llama2")
+    print(f"Then run: ollama pull {args.model}")
     print("\nType 'quit' or 'exit' to end the conversation")
     print("Type 'history' to see conversation history")
     print("-" * 60)
 
     # Initialize the chat
     try:
-        chat = MindLoopChat(model_name="llama3.2")
+        chat = MindLoopChat(model_name=args.model, base_url=args.base_url)
         print("\n✓ Connected to Ollama successfully!\n")
     except Exception as e:
         print(f"\n✗ Error connecting to Ollama: {e}")
-        print("Make sure Ollama is running on http://localhost:11434")
+        print(f"Make sure Ollama is running on {args.base_url}")
         return
 
     # Interactive chat loop

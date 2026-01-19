@@ -6,7 +6,7 @@ This shows how to extend example_rag.py to read actual files
 instead of using hardcoded sample documents.
 """
 
-from example_rag import DocumentChat
+from MindLoopRagDemo import DocumentChat
 from langchain.schema import Document
 import os
 

@@ -6,7 +6,7 @@ This demonstrates how to extend the basic chat app with document search.
 The LLM can now answer questions based on your own documents.
 
 Setup:
-    pip install -r requirements.txt -r requirements-rag.txt
+    pip install -r requirements.txt -r requirements.txt
 
     Or manually:
     pip install chromadb sentence-transformers
@@ -24,12 +24,13 @@ except ImportError as e:
     print("=" * 60)
     print("\nThis example requires additional packages.")
     print("\nInstall with:")
-    print("  pip install -r requirements-rag.txt")
+    print("  pip install -r requirements.txt")
     print("\nOr manually:")
     print("  pip install chromadb sentence-transformers")
     print("\n" + "=" * 60)
     exit(1)
 
+from cli import DEFAULT_MODEL, parse_args
 from langchain_community.llms import Ollama
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
@@ -135,13 +136,14 @@ Answer:"""
 
 
 def main():
+    args = parse_args()
     """Example usage."""
     print("=" * 60)
     print("RAG Example - Chat with Your Documents")
     print("=" * 60)
 
     # Initialize
-    doc_chat = DocumentChat(model_name="llama3.2")
+    doc_chat = DocumentChat(model_name=DEFAULT_MODEL)
 
     # Example: Add some documents
     sample_docs = [

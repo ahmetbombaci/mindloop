@@ -14,7 +14,7 @@ Install additional dependencies:
     pip install beautifulsoup4  # For web scraping
 """
 
-from example_rag import DocumentChat
+from MindLoopRagDemo import DocumentChat
 
 
 def load_from_pdf(pdf_path):

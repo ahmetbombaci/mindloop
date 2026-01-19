@@ -11,9 +11,9 @@ Setup:
 """
 
 from langchain_groq import ChatGroq
-from langchain.prompts import ChatPromptTemplate
-from langchain.schema import StrOutputParser
-from langchain.schema.runnable import RunnablePassthrough
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.runnables import RunnablePassthrough
 import os
 from dotenv import load_dotenv
 
@@ -34,7 +34,7 @@ def main():
 
     # Initialize Groq LLM
     llm = ChatGroq(
-        model="llama3-70b-8192",  # Fast and powerful
+        model="llama-3.3-70b-versatile",  # Fast and powerful
         temperature=0.7,
         api_key=api_key
     )

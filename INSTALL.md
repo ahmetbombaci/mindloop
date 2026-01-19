@@ -45,9 +45,9 @@ pip install -r requirements.txt
 ```
 
 **What you can run:**
-- `app.py` - Basic chat with memory
+- `MindLoopChat.py` - Basic chat with memory
 - `example_groq.py` - Cloud API example (with API key)
-- `example_tools.py` - Function calling (calculator, Wikipedia, etc.)
+- `MindLoopTools.py` - Function calling (calculator, Wikipedia, etc.)
 - `example_chains.py` - Advanced chain composition
 - `example_memory_output.py` - Memory and output parsing
 

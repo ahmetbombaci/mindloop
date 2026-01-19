@@ -17,6 +17,7 @@ from langchain_community.llms import Ollama
 from langchain.agents import Tool, initialize_agent, AgentType
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
+from cli import parse_args, DEFAULT_MODEL
 import math
 import datetime
 import requests
@@ -71,17 +72,55 @@ def search_wikipedia(query: str) -> str:
         query: Search term
 
     Returns:
-        Summary from Wikipedia
+        Extended content from Wikipedia
     """
-    try:
-        url = f"https://en.wikipedia.org/api/rest_v1/page/summary/{query}"
-        response = requests.get(url, timeout=5)
+    # Wikipedia API requires a User-Agent header
+    headers = {"User-Agent": "MindLoop/1.0 (https://github.com/mindloop; educational project)"}
 
+    def get_extract(title: str) -> str:
+        """Get extended extract using MediaWiki API."""
+        url = "https://en.wikipedia.org/w/api.php"
+        params = {
+            "action": "query",
+            "titles": title,
+            "prop": "extracts",
+            "exintro": False,  # Get more than just intro
+            "explaintext": True,  # Plain text, no HTML
+            "exsectionformat": "plain",
+            "exchars": 2000,  # Get up to 2000 characters
+            "format": "json"
+        }
+        response = requests.get(url, headers=headers, params=params, timeout=10)
         if response.status_code == 200:
             data = response.json()
-            return data.get('extract', 'No summary available')
-        else:
-            return f"Could not find information about '{query}'"
+            pages = data.get("query", {}).get("pages", {})
+            for page in pages.values():
+                if "extract" in page:
+                    return page["extract"]
+        return None
+
+    try:
+        # First, search for the page title
+        search_url = "https://en.wikipedia.org/w/api.php"
+        params = {
+            "action": "query",
+            "list": "search",
+            "srsearch": query,
+            "format": "json",
+            "srlimit": 1
+        }
+        search_response = requests.get(search_url, headers=headers, params=params, timeout=5)
+
+        if search_response.status_code == 200:
+            search_data = search_response.json()
+            results = search_data.get("query", {}).get("search", [])
+            if results:
+                page_title = results[0]["title"]
+                extract = get_extract(page_title)
+                if extract:
+                    return f"Wikipedia article '{page_title}':\n\n{extract}"
+
+        return f"Could not find information about '{query}'"
     except Exception as e:
         return f"Error searching Wikipedia: {e}"
 
@@ -103,10 +142,10 @@ def word_counter(text: str) -> str:
     return f"Words: {words}, Characters: {chars}, Sentences: {sentences}"
 
 
-class ToolsChat:
+class MindLoopToolsChat:
     """Chat with access to custom tools."""
 
-    def __init__(self, model_name="llama3.2"):
+    def __init__(self, model_name=DEFAULT_MODEL):
         print("Initializing chat with tools...")
 
         # Initialize LLM
@@ -127,7 +166,7 @@ class ToolsChat:
             Tool(
                 name="Wikipedia",
                 func=search_wikipedia,
-                description="Useful for searching information on Wikipedia. Input should be a search term or topic."
+                description="Useful for fetching Wikipedia article content. Input should be a topic name. Returns article text that you should then summarize for the user."
             ),
             Tool(
                 name="TextAnalyzer",
@@ -143,7 +182,7 @@ class ToolsChat:
             llm=self.llm,
             agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
             verbose=True,  # Shows the agent's thinking process
-            max_iterations=3,
+            max_iterations=5,
             early_stopping_method="generate"
         )
 
@@ -162,6 +201,7 @@ class ToolsChat:
 
 
 def main():
+    args = parse_args()
     """Example usage."""
     print("=" * 60)
     print("Tools Example - Chat with Function Calling")
@@ -175,7 +215,7 @@ def main():
     print("\nType 'quit' to exit\n")
 
     # Initialize
-    chat = ToolsChat(model_name="llama3.2")
+    chat = MindLoopToolsChat(model_name=args.model)
 
     # Interactive chat
     while True:

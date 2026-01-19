@@ -6,3 +6,22 @@ python-dotenv==1.0.0
 
 # Requests for tools example (example_tools.py)
 requests==2.31.0
+
+# MindLoopRag
+chromadb==0.4.22
+sentence-transformers==2.3.1
+
+# Mindloop Embed
+torch==2.9.1
+transformers==4.57.3
+accelerate==1.12.0
+sentencepiece==0.2.1
+
+#Mistral AI integration (direct api - no langchain)
+mistralai
+
+
+# Alternative LLM providers (uncomment to use)
+# langchain-groq==0.0.1
+# langchain-google-genai==0.0.5
+# langchain-anthropic==0.0.2
